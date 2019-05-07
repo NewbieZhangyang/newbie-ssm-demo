@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--读取静态配置文件，获取相关数据库连接参数 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!-- 配置数据源 -->
+    <bean id="abstractDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" abstract="true" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}"/>
+        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+        <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
+    </bean>
+    <!-- 配置数据源：主库 -->
+    <bean id="master" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${master.jdbc.url}"/>
+    </bean>
+    <!-- 配置数据源：从库1 -->
+    <bean id="slave1" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${slave1.jdbc.url}"/>
+    </bean>
+    <!-- 配置数据源：从库2 -->
+    <bean id="slave2" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${slave2.jdbc.url}"/>
+    </bean>
+
+    <!-- 动态数据源配置，这个class要完成实例化 -->
+    <bean id="dynamicDataSource" class="com.newbie.util.DynamicDataSource">
+        <property name="targetDataSources">
+            <!-- 指定lookupKey和与之对应的数据源,切换时使用的为key -->
+            <map key-type="java.lang.String">
+                <entry key="master" value-ref="master"/>
+                <entry key="slave1" value-ref="slave1"/>
+                <entry key="slave2" value-ref="slave2"/>
+            </map>
+        </property>
+        <!-- 这里可以指定默认的数据源 -->
+        <property name="defaultTargetDataSource" ref="master"/>
+    </bean>
+
+    <!-- 配置MyBatis创建数据库连接的工厂类 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--数据源指定为：动态数据源DynamicDataSource -->
+        <property name="dataSource" ref="dynamicDataSource"/>
+        <!-- mapper配置文件 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!-- 配置自动扫描DAO接口包，动态实现DAO接口实例，注入到Spring容器中进行管理 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入SqlSession工厂对象:SqlSessionFactoryBean -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 指定要扫描的DAO接口所在包 -->
+        <property name="basePackage" value="com.newbie.dao"/>
+    </bean>
+
+
+</beans>

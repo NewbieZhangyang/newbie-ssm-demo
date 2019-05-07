@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper配置文件，其中namespace指定要动态实例的DAO接口全局类名称 -->
+<mapper namespace="com.newbie.dao.UserDAO">
+    <!-- 查询所有用户 -->
+    <select id="selectAll" resultType="com.newbie.domain.User">
+        select id,username,title from user
+    </select>
+
+    <!-- 增加一条用户记录 -->
+    <!--<insert id="insert" parameterType="user">-->
+        <!--insert into user (id,username) values(#{id},#{username})-->
+    <!--</insert>-->
+
+</mapper>
