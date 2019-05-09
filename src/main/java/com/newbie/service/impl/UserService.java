@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+/**
+ *   测试：访问多数据源
+ */
 @Service
 public class UserService implements IUserService {
     @Resource

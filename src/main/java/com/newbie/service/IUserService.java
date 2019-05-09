@@ -5,6 +5,7 @@ import com.newbie.domain.User;
 
 import java.util.List;
 
+
 public interface IUserService {
     List<User> searchAllUser(String dataSourceKey);
 

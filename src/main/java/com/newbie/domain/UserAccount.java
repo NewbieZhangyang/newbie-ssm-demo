@@ -44,4 +44,14 @@ public class UserAccount implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "accountId='" + accountId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", balance=" + balance +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

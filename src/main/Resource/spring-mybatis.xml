@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--读取静态配置文件，获取相关数据库连接参数 -->
     <context:property-placeholder location="classpath:db.properties"/>
@@ -63,5 +66,26 @@
         <property name="basePackage" value="com.newbie.dao"/>
     </bean>
 
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dynamicDataSource"/>
+    </bean>
+    <!--方式一：开启事务注解扫描功能，进行事务管理 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 方式二：使用AOP切面方式，植入事务控制 -->
+    <!-- 使用aop方式，将事务植入到service方法上，实现事务操作 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 为连接点指定事务属性 : 切入的方法、事务传播行为、监听的异常类型 -->
+            <tx:method name="aopAdvice*"
+                       propagation="REQUIRED"
+                       rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--  aop切入点设置 -->
+    <aop:config>
+        <aop:pointcut id="pointcutService" expression="execution(* *..service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcutService"/>
+    </aop:config>
 
 </beans>
