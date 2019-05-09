@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- 该配置文件是为用于自动生成MyBatis下的pojo、dao、mapper.xml使用的，在项目的业务功能中并不使用  -->
+<!-- 自动生成pojo/dao/mapper的方式，到com.newbie.tools.mybatis.generator.MybatisGeneratorTool类中执行test()方法 -->
+<generatorConfiguration>
+
+    <!--targetRuntime="MyBatis3Simple":生成简单版的CRUD;MyBatis3:豪华版 -->
+    <context id="MyBatisGenerator" targetRuntime="MyBatis3">
+
+        <!-- 生成的实体Bean,将实现Serializable -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true:是 ; false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- jdbcConnection:连接数据库 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/nb_master"
+                        userId="root"
+                        password="Newbie27Togrow">
+        </jdbcConnection>
+
+        <!-- 默认false,把JDBC DECIMAL和 NUMERIC 类型解析为 Integer true,
+            把JDBC DECIMAL和 NUMERIC类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 注意；targetProject="/Users/zhangyangyang/IdeaProjects/newbie-ssm-demo/src/main/java"
+             该属性指生成的文件存储在磁盘的哪一个目录，可使用相对路径设置（目前作者使用相对路径没有成功，暂时使用的是绝对路径）-->
+
+        <!-- 生成model模型所对应的包路径,以及文件存放路径(targetProject);
+        targetProject可以指定具体的路径,如./src/main/java,也可以使用“MAVEN”来自动生成,
+        这样生成的代码会在target/generatord-source目录下 -->
+        <javaModelGenerator targetPackage="com.newbie.domain"
+                            targetProject="/Users/zhangyangyang/IdeaProjects/newbie-ssm-demo/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--对应的mapper.xml文件 -->
+        <sqlMapGenerator targetPackage="com.newbie.dao"
+                         targetProject="/Users/zhangyangyang/IdeaProjects/newbie-ssm-demo/src/main/mappers">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 对应的Mapper接口DAO类文件-->
+         <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.newbie.dao"
+                             targetProject="/Users/zhangyangyang/IdeaProjects/newbie-ssm-demo/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 数据表与Bean的映射 -->
+        <table tableName="user" domainObjectName="User"/>
+        <table tableName="user_account" domainObjectName="UserAccount" />
+        <table tableName="user_stock" domainObjectName="UserStock" />
+
+    </context>
+</generatorConfiguration>

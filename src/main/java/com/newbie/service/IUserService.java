@@ -1,5 +1,6 @@
 package com.newbie.service;
 
+
 import com.newbie.domain.User;
 
 import java.util.List;

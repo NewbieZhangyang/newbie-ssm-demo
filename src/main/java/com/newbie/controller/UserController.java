@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 测试：访问多数据源
  * 控制器：接收客户端请求，处理后将结果响应给客户
  */
 @Controller

@@ -1,19 +1,24 @@
 package com.newbie.domain;
 
-/**
- * 用户信息封装类
- */
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String id;
+
     private String username;
+
     private String title;
+
+    private String remark;
+
+    private static final long serialVersionUID = 1L;
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
     public String getUsername() {
@@ -21,7 +26,7 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public String getTitle() {
@@ -29,15 +34,14 @@ public class User {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }
