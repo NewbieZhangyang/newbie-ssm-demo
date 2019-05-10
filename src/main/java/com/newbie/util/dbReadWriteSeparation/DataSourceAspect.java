@@ -22,7 +22,7 @@ public class DataSourceAspect {
      * 定义切面植入的增强功能：在service对象的方法执行前，进行切入
      * @param joinpoint ： 切面对象
      */
-    @Before("execution(* *..service.*.*(..))")
+    @Before("execution(* *..service.IReadWriteSeparationService.*(..))")
     public void before(JoinPoint joinpoint){
         String methodName = joinpoint.getSignature().getName();
         //根据方法名称的前缀，判断是否是查询方法
