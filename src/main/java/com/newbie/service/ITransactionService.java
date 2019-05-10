@@ -7,6 +7,6 @@ public interface ITransactionService {
     void notTransactionCommit() throws Exception;
     void annotationCommit() throws Exception;
     void aopAdviceCommit() throws Exception;
-    String queryData();
+    String ignoreQueryData();
     void updateResetData();
 }

@@ -34,7 +34,7 @@ public class DataSourceAspect {
             //标记为主库
             DynamicDataSourceHolder.setDataSourceKey("master");
         }
-        System.out.println("========= 切入的方法名称：methodName ： "+methodName+"，重置当前线程数据源：key = "+DynamicDataSourceHolder.getDataSourceKey());
+        System.out.println("========= 切入的方法名称："+methodName+"，重置当前线程数据源：key = "+DynamicDataSourceHolder.getDataSourceKey());
 
     }
 

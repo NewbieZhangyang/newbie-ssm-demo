@@ -48,7 +48,7 @@ public class TransactionService implements ITransactionService {
      * 查询用户的账户余额 和 股票票数
      * @return
      */
-    public String queryData(){
+    public String ignoreQueryData(){
         String accountId = "6222-0001"; //账户Id
         String stockId = "AB-01";       //股票ID
         //查询用户的账户余额 和 股票票数

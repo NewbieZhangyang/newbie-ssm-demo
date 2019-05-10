@@ -78,7 +78,7 @@ public class TransactionController {
      */
     public String setModel(Model model) {
         String message = "操作失败";
-        message = transactionService.queryData();
+        message = transactionService.ignoreQueryData();
         model.addAttribute("message", message);
         return "showInfo";
     }
