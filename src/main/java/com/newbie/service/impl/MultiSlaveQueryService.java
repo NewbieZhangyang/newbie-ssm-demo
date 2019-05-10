@@ -55,7 +55,7 @@ public class MultiSlaveQueryService implements IMultiSlaveQueryService {
             Iterator<UserAccount> iterator = userAccountList.iterator();
             while (iterator.hasNext()){
                 UserAccount userAccount = iterator.next();
-                message += "<p>用户ID : "+userAccount.getAccountId()+" , 账户余额 : "+userAccount.getBalance()+" , 数据来源："+userAccount.getRemark()+"</p>";
+                message += "<p>账户ID : "+userAccount.getAccountId()+" , 账户余额 : "+userAccount.getBalance()+" , 数据来源："+userAccount.getRemark()+"</p>";
             }
             message += "<hr/>";
         }
