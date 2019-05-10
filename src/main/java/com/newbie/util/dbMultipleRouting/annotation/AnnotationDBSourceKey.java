@@ -1,4 +1,4 @@
-package com.newbie.util.annotation;
+package com.newbie.util.dbMultipleRouting.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

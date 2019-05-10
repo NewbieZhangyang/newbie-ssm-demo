@@ -1,6 +1,6 @@
-package com.newbie.util.annotation;
+package com.newbie.util.dbMultipleRouting.annotation;
 
-import com.newbie.util.DynamicDataSourceHolder;
+import com.newbie.util.dbMultipleRouting.DynamicDataSourceHolder;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

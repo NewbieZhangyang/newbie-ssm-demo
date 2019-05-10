@@ -3,8 +3,8 @@ package com.newbie.service.impl;
 import com.newbie.dao.UserMapper;
 import com.newbie.domain.User;
 import com.newbie.service.IUserService;
-import com.newbie.util.DynamicDataSourceHolder;
-import com.newbie.util.annotation.AnnotationDBSourceKey;
+import com.newbie.util.dbMultipleRouting.DynamicDataSourceHolder;
+import com.newbie.util.dbMultipleRouting.annotation.AnnotationDBSourceKey;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

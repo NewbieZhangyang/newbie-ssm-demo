@@ -13,7 +13,8 @@
     <!--读取静态配置文件，获取相关数据库连接参数 -->
     <context:property-placeholder location="classpath:db.properties"/>
     <!-- 配置数据源 -->
-    <bean id="abstractDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" abstract="true" destroy-method="close">
+    <bean id="abstractDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          abstract="true" destroy-method="close">
         <property name="driverClass" value="${jdbc.driver}"/>
         <property name="user" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
@@ -35,15 +36,25 @@
     <bean id="slave2" parent="abstractDataSource">
         <property name="jdbcUrl" value="${slave2.jdbc.url}"/>
     </bean>
+    <!-- 配置数据源：从库3 -->
+    <bean id="slave3" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${slave3.jdbc.url}"/>
+    </bean>
+    <!--配置数据源：从库4 -->
+    <!--<bean id="slave4" parent="abstractDataSource">-->
+        <!--<property name="jdbcUrl" value="${slave4.jdbc.url}"/>-->
+    <!--</bean>-->
 
     <!-- 动态数据源配置，这个class要完成实例化 -->
-    <bean id="dynamicDataSource" class="com.newbie.util.DynamicDataSource">
+    <bean id="dynamicDataSource" class="com.newbie.util.dbMultipleRouting.DynamicDataSource">
         <property name="targetDataSources">
             <!-- 指定lookupKey和与之对应的数据源,切换时使用的为key -->
             <map key-type="java.lang.String">
                 <entry key="master" value-ref="master"/>
                 <entry key="slave1" value-ref="slave1"/>
                 <entry key="slave2" value-ref="slave2"/>
+                <entry key="slave3" value-ref="slave3"/>
+                <!--<entry key="slave4" value-ref="slave4"/>-->
             </map>
         </property>
         <!-- 这里可以指定默认的数据源 -->

@@ -1,4 +1,4 @@
-package com.newbie.util;
+package com.newbie.util.dbMultipleRouting;
 
 /**
  * 自定义类：用来保存数据源标识，从而在实例化DynamicDataSource时来指定要使用的数据源实例

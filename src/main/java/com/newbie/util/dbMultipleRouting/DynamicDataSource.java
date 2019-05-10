@@ -1,4 +1,4 @@
-package com.newbie.util;
+package com.newbie.util.dbMultipleRouting;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
