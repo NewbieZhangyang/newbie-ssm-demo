@@ -12,6 +12,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ *
+ *  在实际项目中，并不使用这个类。
+ *  实际项目中，DynamicDataSource类重写父类的方法，来控制数据源的切换
  *  定义数据源的AOP切面，通过该Service的方法名判断是应该走读库还是写库
  */
 @Component

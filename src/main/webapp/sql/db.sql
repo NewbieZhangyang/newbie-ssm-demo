@@ -6,8 +6,7 @@ CREATE TABLE user(
 	title VARCHAR(25) comment '职级',
   remark varchar(50) default '主库master' comment '信息备注',
   primary key(id)
-	);
-insert into user(id,username,title) values('newbie','简小六','程序猿');
+);
 
 # 用户银行账户表
 drop table if exists user_account;
@@ -18,7 +17,6 @@ create table user_account(
   remark varchar(50) default '主库master' comment '信息备注',
   primary key (account_id)
 );
-insert into user_account (account_id,user_id,balance) values ('6222-0001','newbie',100);
 
 # 用户股票记录表
 drop table if exists user_stock;
@@ -30,4 +28,16 @@ create table user_stock(
   remark varchar(50) default '主库master' comment '信息备注',
   primary key (stock_id)
 );
+
+#批量修改ramark字段的默认值
+alter table user alter column remark drop default;
+alter table user_account alter column remark drop default;
+alter table user_stock alter column remark drop default;
+alter table user alter COLUMN remark set DEFAULT '从库-salve-04';
+alter table user_account alter COLUMN remark set DEFAULT '从库-salve-04';
+alter table user_stock alter COLUMN remark set DEFAULT '从库-salve-04';
+
+#插入测试数据
+insert into user(id,username,title) values('newbie','简小六','程序猿');
+insert into user_account (account_id,user_id,balance) values ('6222-0001','newbie',100);
 insert into user_stock (stock_id,user_id,stock_name,count_num) values ('AB-01','newbie','AB股','0');

@@ -49,7 +49,8 @@ public class MultiSlaveQueryService implements IMultiSlaveQueryService {
         for (int i = 1; i <= 10; i++){
             int baseNumber = new Random().nextInt(20);
             DynamicDataSourceHolder.setDataSourceKey(key);
-            DynamicDataSourceHolder.setBaseNumber(baseNumber);
+            //此处是早期的版本：测试一主多从查询时使用的，和当前一致性hash分库方案有冲突，故给下面一行加了注释
+            //DynamicDataSourceHolder.setBaseNumber(baseNumber);
             List<UserAccount> userAccountList = userAccountMapper.selectByExample(null);
             message += "<p>查询次数 = "+i+" ,基数 = "+baseNumber+" ,原key = "+ key+" , 最终key = "+ DynamicDataSourceHolder.getDataSourceKey()+"</p>";
             Iterator<UserAccount> iterator = userAccountList.iterator();

@@ -25,9 +25,21 @@
         <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
     </bean>
     <!-- 配置数据源：主库 -->
-    <bean id="master" parent="abstractDataSource">
-        <property name="jdbcUrl" value="${master.jdbc.url}"/>
+    <bean id="master1" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${master1.jdbc.url}"/>
     </bean>
+    <!-- 配置数据源：主库 -->
+    <bean id="master2" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${master2.jdbc.url}"/>
+    </bean>
+    <!-- 配置数据源：主库 -->
+    <bean id="master3" parent="abstractDataSource">
+        <property name="jdbcUrl" value="${master3.jdbc.url}"/>
+    </bean>
+    <!-- 配置数据源：主库 -->
+    <!--<bean id="master4" parent="abstractDataSource">-->
+        <!--<property name="jdbcUrl" value="${master4.jdbc.url}"/>-->
+    <!--</bean>-->
     <!-- 配置数据源：从库1 -->
     <bean id="slave1" parent="abstractDataSource">
         <property name="jdbcUrl" value="${slave1.jdbc.url}"/>
@@ -50,7 +62,10 @@
         <property name="targetDataSources">
             <!-- 指定lookupKey和与之对应的数据源,切换时使用的为key -->
             <map key-type="java.lang.String">
-                <entry key="master" value-ref="master"/>
+                <entry key="master1" value-ref="master1"/>
+                <entry key="master2" value-ref="master2"/>
+                <entry key="master3" value-ref="master3"/>
+                <!--<entry key="master4" value-ref="master4"/>-->
                 <entry key="slave1" value-ref="slave1"/>
                 <entry key="slave2" value-ref="slave2"/>
                 <entry key="slave3" value-ref="slave3"/>
@@ -58,7 +73,7 @@
             </map>
         </property>
         <!-- 这里可以指定默认的数据源 -->
-        <property name="defaultTargetDataSource" ref="master"/>
+        <property name="defaultTargetDataSource" ref="master1"/>
     </bean>
 
     <!-- 配置MyBatis创建数据库连接的工厂类 -->
